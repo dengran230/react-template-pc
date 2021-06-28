@@ -1,0 +1,73 @@
+{
+  "name": "pc-react-template",
+  "description": "PC项目模版，基于umi3 + react + antd + ts + less开发",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "cross-env PORT=8806 umi dev",
+    "start:no-mock": "cross-env PORT=8807 MOCK=none umi dev",
+    "start:dev": "cross-env PORT=8808 UMI_ENV=dev umi dev",
+    "start:staging": "cross-env PORT=8809 UMI_ENV=staging umi dev",
+    "start:prod": "cross-env PORT=8810 UMI_ENV=prod umi dev",
+    "build:dev": "cross-env UMI_ENV=dev umi build",
+    "build:staging": "cross-env UMI_ENV=staging umi build",
+    "build:prod": "cross-env UMI_ENV=prod umi build",
+    "postinstall": "umi generate tmp",
+    "lint": "npm run lint:js && npm run lint:style && npm run lint:prettier",
+    "lint-staged": "lint-staged",
+    "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx ",
+    "lint:fix": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src && npm run lint:style",
+    "lint:js": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src",
+    "lint:prettier": "prettier --check \"**/*.{js,jsx,tsx,ts,less,md,json}\" --end-of-line auto",
+    "lint:style": "stylelint --fix \"src/**/*.less\" --syntax less",
+    "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "test": "umi-test",
+    "test:coverage": "umi-test --coverage",
+    "git-commit": "yarn lancet-commit",
+    "pre-commit": "run-s prettier lint lint:fix",
+    "commit": "run-s prettier lint git-commit"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "lancet-commit"
+    }
+  },
+  "dependencies": {
+    "@umijs/plugin-esbuild": "^1.0.1",
+    "@umijs/preset-react": "^1.6.19",
+    "antd": "^4.8.4",
+    "dayjs": "^1.9.6",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "umi": "^3.2.27"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
+    "@hxgy/lancet-commit": "^1.0.0",
+    "@hxgy/lancet-lint": "^1.0.2",
+    "@umijs/test": "^3.2.27",
+    "cross-env": "^7.0.2",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.0.7",
+    "mockjs": "^1.1.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.1",
+    "yorkie": "^2.0.0"
+  }
+}
